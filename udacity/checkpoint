@@ -1,0 +1,4 @@
+model_checkpoint_path: "lstm-param-10000"
+all_model_checkpoint_paths: "lstm-pram-1000"
+all_model_checkpoint_paths: "lstm-param-2000"
+all_model_checkpoint_paths: "lstm-param-10000"
