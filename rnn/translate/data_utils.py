@@ -28,7 +28,7 @@ from six.moves import urllib
 from tensorflow.python.platform import gfile
 
 # Special vocabulary symbols - we always put them at the start.
-_PAD = b"_PAD"
+_PAD = b"_PAD" # pad means add zero to un-used position 
 _GO = b"_GO"
 _EOS = b"_EOS"
 _UNK = b"_UNK"

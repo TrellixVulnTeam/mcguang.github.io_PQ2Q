@@ -43,6 +43,7 @@ import tensorflow as tf
 
 from tensorflow.models.rnn.translate import data_utils
 from tensorflow.models.rnn.translate import seq2seq_model
+import pdb
 
 
 tf.app.flags.DEFINE_float("learning_rate", 0.5, "Learning rate.")
@@ -222,12 +223,14 @@ def decode():
     _, rev_fr_vocab = data_utils.initialize_vocabulary(fr_vocab_path)
 
     # Decode from standard input.
-    sys.stdout.write("> ")
+    sys.stdout.write("> ") # input "I love you\n"
     sys.stdout.flush()
     sentence = sys.stdin.readline()
     while sentence:
+      pdb.set_trace()
       # Get token-ids for the input sentence.
-      token_ids = data_utils.sentence_to_token_ids(tf.compat.as_bytes(sentence), en_vocab)
+      token_ids = data_utils.sentence_to_token_ids(tf.compat.as_bytes(sentence), en_vocab) # [87, 8644, 92] (start from zero)
+      # en_vocab = english vocablary dictionaey. a map from words --> number 
       # Which bucket does it belong to?
       bucket_id = min([b for b in xrange(len(_buckets))
                        if _buckets[b][0] > len(token_ids)])
