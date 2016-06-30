@@ -122,10 +122,10 @@ def create_model(session, forward_only):
       FLAGS.size, FLAGS.num_layers, FLAGS.max_gradient_norm, FLAGS.batch_size,
       FLAGS.learning_rate, FLAGS.learning_rate_decay_factor,
       forward_only=forward_only)
-  ckpt = tf.train.get_checkpoint_state(FLAGS.train_dir)
+  ckpt = tf.train.get_checkpoint_state(FLAGS.train_dir) # load the check point file to ckpt
   if ckpt and tf.gfile.Exists(ckpt.model_checkpoint_path):
     print("Reading model parameters from %s" % ckpt.model_checkpoint_path)
-    model.saver.restore(session, ckpt.model_checkpoint_path)
+    model.saver.restore(session, ckpt.model_checkpoint_path) # the latist check point file
   else:
     print("Created model with fresh parameters.")
     session.run(tf.initialize_all_variables())
@@ -138,6 +138,10 @@ def train():
   print("Preparing WMT data in %s" % FLAGS.data_dir)
   en_train, fr_train, en_dev, fr_dev, _, _ = data_utils.prepare_wmt_data(
       FLAGS.data_dir, FLAGS.en_vocab_size, FLAGS.fr_vocab_size)
+  # en_train = giga-fren.release2.ids40000.en  (22,520,400 lines)
+  # fr_train = giga-fren.release2.ids40000.fr  (22,520,400 lines)
+  # en_dev = newstest2013.ids40000.en  (3,000 lines)
+  # fr_dev = newstest2013.ids40000.fr  (3,000 lines)
   pdb.set_trace()
   with tf.Session() as sess:
     # Create model.
@@ -148,7 +152,7 @@ def train():
     print ("Reading development and training data (limit: %d)."
            % FLAGS.max_train_data_size)
     dev_set = read_data(en_dev, fr_dev)
-    train_set = read_data(en_train, fr_train, FLAGS.max_train_data_size)
+    train_set = read_data(en_train, fr_train, FLAGS.max_train_data_size) # append the (en, fr) data according the bucket id
     train_bucket_sizes = [len(train_set[b]) for b in xrange(len(_buckets))]
     train_total_size = float(sum(train_bucket_sizes))
 
