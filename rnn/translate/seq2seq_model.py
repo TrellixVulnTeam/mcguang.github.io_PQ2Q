@@ -116,9 +116,9 @@ class Seq2SeqModel(object):
     self.encoder_inputs = []
     self.decoder_inputs = []
     self.target_weights = []
-    for i in xrange(buckets[-1][0]):  # Last bucket is the biggest one.
+    for i in xrange(buckets[-1][0]):  # Last bucket is the biggest one.   -1 = the last = the biggest one
       self.encoder_inputs.append(tf.placeholder(tf.int32, shape=[None],
-                                                name="encoder{0}".format(i)))
+                                                name="encoder{0}".format(i))) # "encoder{0}".format(5) = encoder5
     for i in xrange(buckets[-1][1] + 1):
       self.decoder_inputs.append(tf.placeholder(tf.int32, shape=[None],
                                                 name="decoder{0}".format(i)))
@@ -126,14 +126,14 @@ class Seq2SeqModel(object):
                                                 name="weight{0}".format(i)))
 
     # Our targets are decoder inputs shifted by one.
-    targets = [self.decoder_inputs[i + 1]
+    targets = [self.decoder_inputs[i + 1] # start from i+1. it means cut off 0.  0,1,2,3,4,5,6 --> 1,2,3,4,5,6
                for i in xrange(len(self.decoder_inputs) - 1)]
 
     # Training outputs and losses.
     if forward_only:
       self.outputs, self.losses = tf.nn.seq2seq.model_with_buckets(
           self.encoder_inputs, self.decoder_inputs, targets,
-          self.target_weights, buckets, lambda x, y: seq2seq_f(x, y, True),
+          self.target_weights, buckets, lambda x, y: seq2seq_f(x, y, True), # True
           softmax_loss_function=softmax_loss_function)
       # If we use output projection, we need to project outputs for decoding.
       if output_projection is not None:
@@ -146,7 +146,7 @@ class Seq2SeqModel(object):
       self.outputs, self.losses = tf.nn.seq2seq.model_with_buckets(
           self.encoder_inputs, self.decoder_inputs, targets,
           self.target_weights, buckets,
-          lambda x, y: seq2seq_f(x, y, False),
+          lambda x, y: seq2seq_f(x, y, False), # False
           softmax_loss_function=softmax_loss_function)
 
     # Gradients and SGD update operation for training the model.

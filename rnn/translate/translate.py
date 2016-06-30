@@ -138,7 +138,7 @@ def train():
   print("Preparing WMT data in %s" % FLAGS.data_dir)
   en_train, fr_train, en_dev, fr_dev, _, _ = data_utils.prepare_wmt_data(
       FLAGS.data_dir, FLAGS.en_vocab_size, FLAGS.fr_vocab_size)
-
+  pdb.set_trace()
   with tf.Session() as sess:
     # Create model.
     print("Creating %d layers of %d units." % (FLAGS.num_layers, FLAGS.size))
@@ -227,7 +227,6 @@ def decode():
     sys.stdout.flush()
     sentence = sys.stdin.readline()
     while sentence:
-      pdb.set_trace()
       # Get token-ids for the input sentence.
       token_ids = data_utils.sentence_to_token_ids(tf.compat.as_bytes(sentence), en_vocab) # [87, 8644, 92] (start from zero)
       # en_vocab = english vocablary dictionaey. a map from words --> number 
@@ -256,6 +255,7 @@ def self_test():
   """Test the translation model."""
   with tf.Session() as sess:
     print("Self-test for neural translation model.")
+    pdb.set_trace()
     # Create model with vocabularies of 10, 2 small buckets, 2 layers of 32.
     model = seq2seq_model.Seq2SeqModel(10, 10, [(3, 3), (6, 6)], 32, 2,
                                        5.0, 32, 0.3, 0.99, num_samples=8)
