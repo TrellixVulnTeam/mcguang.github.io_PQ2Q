@@ -50,30 +50,30 @@ class Seq2SeqModel(object):
     """Create the model.
 
     Args:
-      source_vocab_size: size of the source vocabulary.
-      target_vocab_size: size of the target vocabulary.
-      buckets: a list of pairs (I, O), where I specifies maximum input length
+      source_vocab_size: size of the source vocabulary.                                            40000
+      target_vocab_size: size of the target vocabulary.                                              40000
+      buckets: a list of pairs (I, O), where I specifies maximum input length            [(5, 10), (10, 15), (20, 25), (40, 50)]
         that will be processed in that bucket, and O specifies maximum output
         length. Training instances that have inputs longer than I or outputs
         longer than O will be pushed to the next bucket and padded accordingly.
         We assume that the list is sorted, e.g., [(2, 4), (8, 16)].
-      size: number of units in each layer of the model.
-      num_layers: number of layers in the model.
-      max_gradient_norm: gradients will be clipped to maximally this norm.
-      batch_size: the size of the batches used during training;
+      size: number of units in each layer of the model.                                             512
+      num_layers: number of layers in the model.                                                     3
+      max_gradient_norm: gradients will be clipped to maximally this norm.           5
+      batch_size: the size of the batches used during training;                                   64
         the model construction is independent of batch_size, so it can be
         changed after initialization if this is convenient, e.g., for decoding.
-      learning_rate: learning rate to start with.
-      learning_rate_decay_factor: decay learning rate by this much when needed.
-      use_lstm: if true, we use LSTM cells instead of GRU cells.
-      num_samples: number of samples for sampled softmax.
-      forward_only: if set, we do not construct the backward pass in the model.
+      learning_rate: learning rate to start with.                                                           0.5
+      learning_rate_decay_factor: decay learning rate by this much when needed.   0.99
+      use_lstm: if true, we use LSTM cells instead of GRU cells.                                 False
+      num_samples: number of samples for sampled softmax.                                  512
+      forward_only: if set, we do not construct the backward pass in the model.       False
     """
-    self.source_vocab_size = source_vocab_size
-    self.target_vocab_size = target_vocab_size
-    self.buckets = buckets
-    self.batch_size = batch_size
-    self.learning_rate = tf.Variable(float(learning_rate), trainable=False)
+    self.source_vocab_size = source_vocab_size # 40000
+    self.target_vocab_size = target_vocab_size  # 40000
+    self.buckets = buckets  # [(5, 10), (10, 15), (20, 25), (40, 50)]
+    self.batch_size = batch_size  # 64
+    self.learning_rate = tf.Variable(float(learning_rate), trainable=False) # 0.5
     self.learning_rate_decay_op = self.learning_rate.assign(
         self.learning_rate * learning_rate_decay_factor)
     self.global_step = tf.Variable(0, trainable=False)
@@ -83,9 +83,9 @@ class Seq2SeqModel(object):
     softmax_loss_function = None
     # Sampled softmax only makes sense if we sample less than vocabulary size.
     if num_samples > 0 and num_samples < self.target_vocab_size:
-      w = tf.get_variable("proj_w", [size, self.target_vocab_size])
+      w = tf.get_variable("proj_w", [size, self.target_vocab_size]) # [512, 40000]
       w_t = tf.transpose(w)
-      b = tf.get_variable("proj_b", [self.target_vocab_size])
+      b = tf.get_variable("proj_b", [self.target_vocab_size]) # [40000, ]
       output_projection = (w, b)
 
       def sampled_loss(inputs, labels):

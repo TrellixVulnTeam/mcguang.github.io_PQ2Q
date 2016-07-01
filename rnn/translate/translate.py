@@ -153,8 +153,8 @@ def train():
            % FLAGS.max_train_data_size)
     dev_set = read_data(en_dev, fr_dev)
     train_set = read_data(en_train, fr_train, FLAGS.max_train_data_size) # append the (en, fr) data according the bucket id
-    train_bucket_sizes = [len(train_set[b]) for b in xrange(len(_buckets))]
-    train_total_size = float(sum(train_bucket_sizes))
+    train_bucket_sizes = [len(train_set[b]) for b in xrange(len(_buckets))] # [239121, 1344322, 5239557, 10445326]
+    train_total_size = float(sum(train_bucket_sizes)) # 17268326.0
 
     # A bucket scale is a list of increasing numbers from 0 to 1 that we'll use
     # to select a bucket. Length of [scale[i], scale[i+1]] is proportional to
