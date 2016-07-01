@@ -160,7 +160,8 @@ def train():
     # to select a bucket. Length of [scale[i], scale[i+1]] is proportional to
     # the size if i-th training bucket, as used later.
     train_buckets_scale = [sum(train_bucket_sizes[:i + 1]) / train_total_size
-                           for i in xrange(len(train_bucket_sizes))]
+                           for i in xrange(len(train_bucket_sizes))] #  [0.0138, 0.0917, 0.395, 1.0]  percentage of total size
+    # given a random number from (0,1), we use train_buckets_scale to decide which bucket to be chose.
 
     # This is the training loop.
     step_time, loss = 0.0, 0.0
@@ -169,9 +170,9 @@ def train():
     while True:
       # Choose a bucket according to data distribution. We pick a random number
       # in [0, 1] and use the corresponding interval in train_buckets_scale.
-      random_number_01 = np.random.random_sample()
+      random_number_01 = np.random.random_sample() # if random_nomber_01 = 0.8234
       bucket_id = min([i for i in xrange(len(train_buckets_scale))
-                       if train_buckets_scale[i] > random_number_01])
+                       if train_buckets_scale[i] > random_number_01]) # in train_buckets_scale just 1.0 lager than 0.8234 . so we chose bucket_id =  3 
 
       # Get a batch and make a step.
       start_time = time.time()
@@ -179,8 +180,8 @@ def train():
           train_set, bucket_id)
       _, step_loss, _ = model.step(sess, encoder_inputs, decoder_inputs,
                                    target_weights, bucket_id, False)
-      step_time += (time.time() - start_time) / FLAGS.steps_per_checkpoint
-      loss += step_loss / FLAGS.steps_per_checkpoint
+      step_time += (time.time() - start_time) / FLAGS.steps_per_checkpoint # average cost time of 200 steps
+          loss += step_loss / FLAGS.steps_per_checkpoint # average loss of 200 steps
       current_step += 1
 
       # Once in a while, we save checkpoint, print statistics, and run evals.
