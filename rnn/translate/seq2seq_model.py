@@ -50,24 +50,24 @@ class Seq2SeqModel(object):
     """Create the model.
 
     Args:
-      source_vocab_size: size of the source vocabulary.                                            40000
-      target_vocab_size: size of the target vocabulary.                                              40000
+      source_vocab_size: size of the source vocabulary.                                  40000
+      target_vocab_size: size of the target vocabulary.                                  40000
       buckets: a list of pairs (I, O), where I specifies maximum input length            [(5, 10), (10, 15), (20, 25), (40, 50)]
         that will be processed in that bucket, and O specifies maximum output
         length. Training instances that have inputs longer than I or outputs
         longer than O will be pushed to the next bucket and padded accordingly.
         We assume that the list is sorted, e.g., [(2, 4), (8, 16)].
-      size: number of units in each layer of the model.                                             512
-      num_layers: number of layers in the model.                                                     3
-      max_gradient_norm: gradients will be clipped to maximally this norm.           5
-      batch_size: the size of the batches used during training;                                   64
+      size: number of units in each layer of the model.                                   512
+      num_layers: number of layers in the model.                                          3
+      max_gradient_norm: gradients will be clipped to maximally this norm.                5
+      batch_size: the size of the batches used during training;                           64
         the model construction is independent of batch_size, so it can be
         changed after initialization if this is convenient, e.g., for decoding.
-      learning_rate: learning rate to start with.                                                           0.5
-      learning_rate_decay_factor: decay learning rate by this much when needed.   0.99
-      use_lstm: if true, we use LSTM cells instead of GRU cells.                                 False
-      num_samples: number of samples for sampled softmax.                                  512
-      forward_only: if set, we do not construct the backward pass in the model.       False
+      learning_rate: learning rate to start with.                                         0.5
+      learning_rate_decay_factor: decay learning rate by this much when needed.           0.99
+      use_lstm: if true, we use LSTM cells instead of GRU cells.                          False
+      num_samples: number of samples for sampled softmax.                                 512
+      forward_only: if set, we do not construct the backward pass in the model.           False
     """
     self.source_vocab_size = source_vocab_size # 40000
     self.target_vocab_size = target_vocab_size  # 40000

@@ -142,7 +142,6 @@ def train():
   # fr_train = giga-fren.release2.ids40000.fr  (22,520,400 lines)
   # en_dev = newstest2013.ids40000.en  (3,000 lines)
   # fr_dev = newstest2013.ids40000.fr  (3,000 lines)
-  pdb.set_trace()
   with tf.Session() as sess:
     # Create model.
     print("Creating %d layers of %d units." % (FLAGS.num_layers, FLAGS.size))
@@ -172,7 +171,8 @@ def train():
       # in [0, 1] and use the corresponding interval in train_buckets_scale.
       random_number_01 = np.random.random_sample() # if random_nomber_01 = 0.8234
       bucket_id = min([i for i in xrange(len(train_buckets_scale))
-                       if train_buckets_scale[i] > random_number_01]) # in train_buckets_scale just 1.0 lager than 0.8234 . so we chose bucket_id =  3 
+                       if train_buckets_scale[i] > random_number_01])
+      # in train_buckets_scale just 1.0 lager than 0.8234 . so we chose bucket_id =  3 
 
       # Get a batch and make a step.
       start_time = time.time()
@@ -181,7 +181,7 @@ def train():
       _, step_loss, _ = model.step(sess, encoder_inputs, decoder_inputs,
                                    target_weights, bucket_id, False)
       step_time += (time.time() - start_time) / FLAGS.steps_per_checkpoint # average cost time of 200 steps
-          loss += step_loss / FLAGS.steps_per_checkpoint # average loss of 200 steps
+      loss += step_loss / FLAGS.steps_per_checkpoint # average loss of 200 steps
       current_step += 1
 
       # Once in a while, we save checkpoint, print statistics, and run evals.
