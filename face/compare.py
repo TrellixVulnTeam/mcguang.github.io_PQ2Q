@@ -90,12 +90,12 @@ def parse_arguments(argv):
     
     parser.add_argument('--model_file', type=str, 
         help='File containing the model parameters as well as the model metagraph (with extension ".meta")',
-        default='/home/mcg/machine-learning/origin/facenet/facenet/data/20160514-234418/model.ckpt-500000')
+        default='/mcg/home/mcg/machine-learning/origin/facenet/facenet/data/20160514-234418/model.ckpt-500000')
     parser.add_argument('--image_folder', type=str, help='the folder of images to calculate the cosine distance each other.')
     #parser.add_argument('--image1', type=str, help='First image to compare.')
     #parser.add_argument('--image2', type=str, help='Second image to compare.')
     parser.add_argument('--dlib_face_predictor', type=str,
-        help='File containing the dlib face predictor.', default='/home/mcg/machine-learning/origin/facenet/facenet/data/shape_predictor_68_face_landmarks.dat')
+        help='File containing the dlib face predictor.', default='/mcg/home/mcg/machine-learning/origin/facenet/facenet/data/shape_predictor_68_face_landmarks.dat')
     return parser.parse_args(argv)
 
 if __name__ == '__main__':
