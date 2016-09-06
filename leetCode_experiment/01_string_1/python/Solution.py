@@ -119,7 +119,26 @@ class Solution_7:
 
 		return A
 
+class Solution_8:
+	"""
+	@param A: A string
+	@param offset: an integer
+	@return: nothing
+	"""
+	def rotateString(self, A, offset):
+		if A is None or len(A) == 0:
+			return
 
+		offset %= len(A)
+		self.reverse(A, 0, len(A) - offset -1)
+		self.reverse(A,len(A) - offset, len(A) - 1)
+		self.reverse(A, 0, len(A) - 1)
+
+	def reverse(self, str_l, start, end):
+		while start < end:
+			str_l[start], str_l[end] = str_l[end], str_l[start]
+			start += 1
+			end -= 1
 
 			
 if __name__ == "__main__":
