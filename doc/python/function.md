@@ -19,6 +19,9 @@
 >>> 'the sky is blue'.split() # split a string to list ,default splict by ' '.
 --> ['the', 'sky', 'is', 'blue']
 
+>>>arr = [1,2,3] # array to string
+>>>str = ','.join(str(i) for i in b)
+
 >>> "".join('abcd')
 --> 'abcd'
 
@@ -52,4 +55,51 @@
 >>> str(123) # number to string
 '123'
 
+>>> seasons = ['Spring', 'Summer', 'Fall', 'Winter'] # enumerate function
+>>> list(enumerate(seasons))
+[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]
+>>> list(enumerate(seasons, start=1))
+[(1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter')]
+
+
+>>> lang = "study python"
+>>> lang.index("p") # find index in string
+6
+
+>>> chr(97) # ascii number --> character 
+'a'
+>>> ord('a') # character --> ascii number
+97
+
+>>> "I like {0} and {1}".format("python", "canglaoshi")
+'I like python and canglaoshi'
+
+>>> "I like {0:10} and {1:>15}".format("python", "canglaoshi")
+'I like python     and      canglaoshi'
+
+>>> "I like {0:^10} and {1:^15}".format("python", "canglaoshi")
+'I like   python   and   canglaoshi   '
+
+>>> "I like {0:.2} and {1:^10.4}".format("python", "canglaoshi")
+'I like py and    cang   '
+
+>>> "I like {lang} and {name}".format(lang="python", name="canglaoshi")
+'I like python and canglaoshi'
+
+>>> "She is {0:4d} years old and the breast is {1:6.2f}cm".format(28, 90.1415926)
+'She is   28 years old and the breast is  90.14cm'
+
+>>> data = {"name":"Canglaoshi", "age":28}
+>>> "{name} is {age}".format( **data) 
+'Canglaoshi is 28'
+
+>>> "python".isalpha()    #字符串全是字母，应该返回True
+True
+>>> "2python".isalpha()    #字符串含非字母，返回False
+False	
+
+>>> S = " hello "
+>>> S.strip()：去掉字符串的左右空格
+>>> S.lstrip()：去掉字符串的左边空格
+>>> S.rstrip()：去掉字符串的右边空格
 
