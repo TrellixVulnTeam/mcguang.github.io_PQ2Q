@@ -103,3 +103,8 @@ False
 >>> S.lstrip()：去掉字符串的左边空格
 >>> S.rstrip()：去掉字符串的右边空格
 
+>>> a = 'Hao are you.'
+>>> a = a.replace(" ","_")
+>>> print a
+Hao_are_you.
+
