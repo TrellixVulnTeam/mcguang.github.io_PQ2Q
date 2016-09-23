@@ -108,3 +108,10 @@ False
 >>> print a
 Hao_are_you.
 
+>>> repr([1,2,3]) #针对输入的任何对象返回一个字符串
+'[1, 2, 3]'
+>>> repr(1)
+'1'
+>>> repr({"lang":"python"})
+"{'lang': 'python'}"
+
